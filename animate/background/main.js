@@ -1,4 +1,4 @@
-function parallaxToDown(image, parallaxOptions, speed) {
+function simpleParallaxToDown(image, parallaxOptions, speed) {
     if (parallaxOptions.backgroundsY[1] === 0) {
         parallaxOptions.backgroundsY[1] = parallaxOptions.screenHeight;
     }
@@ -19,3 +19,14 @@ function parallaxToDown(image, parallaxOptions, speed) {
     image.draw(0, parallaxOptions.backgroundsY[0]);
     image.draw(0, parallaxOptions.backgroundsY[1]);
 }
+
+const image = new Image('./assets/bg.png')
+
+const parallaxOptions = {
+    backgroundsY: [0, Screen.getMode().height],
+    screenHeight: Screen.getMode().height
+};
+
+Screen.display(() => {
+    simpleParallaxToDown(image, parallaxOptions, 24);
+});
