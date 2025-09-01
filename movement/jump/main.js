@@ -2,6 +2,8 @@ const GROUND_POSITION = 250;
 const JUMP_STRENGTH = 8;
 const GRAVITY = 0.5;
 const MAX_Y_VELOCITY = 10;
+const pads = Pads.get();
+let jumpsRemaining = 2;
 
 const idle = new Image('./assets/warrior.png')
 idle.width = 96;
@@ -23,8 +25,9 @@ idle.velocity = {
 }
 
 const jump = () => {
-    if (idle.position.y >= GROUND_POSITION) {
+    if (idle.position.y >= GROUND_POSITION || jumpsRemaining > 0) {
         idle.velocity.y = JUMP_STRENGTH * -1;
+        jumpsRemaining--;
     }
 }
 
@@ -45,6 +48,7 @@ const resetVelocityWhenGrounded = () => {
     if (idle.position.y >= GROUND_POSITION) {
         idle.position.y = GROUND_POSITION;
         idle.velocity.y = 0;
+        jumpsRemaining = 2;
     }
 }
 
@@ -53,8 +57,6 @@ const blockVelocity = () => {
         idle.velocity.y = MAX_Y_VELOCITY;
     }
 }
-
-const pads = Pads.get();
 
 Screen.display(() => {
     pads.update();
